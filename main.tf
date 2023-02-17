@@ -95,7 +95,8 @@ subnet_names = {
 
 module "hub-to-spoke1" {
 source = "./modules/vnet-peering"
-depends_on = [module.hub-vnet , module.spoke1-vnet , module.application_gateway, module.vpn_gateway , module.azure_firewall_01]
+depends_on = [module.hub-vnet , module.spoke1-vnet , module.azure_firewall_01]
+#depends_on = [module.hub-vnet , module.spoke1-vnet , module.application_gateway, module.vpn_gateway , module.azure_firewall_01]
 
 virtual_network_peering_name = "az-conn-pr-eastus2-vnet-to-az-netb-pr-eastus2-vnet"
 resource_group_name          = module.hub-resourcegroup.rg_name
@@ -295,6 +296,7 @@ depends_on = [module.hub-vnet]
     ]
 }   
 
+/**
 module "key_vault" {
 source = "./modules/keyvault"
 
@@ -354,7 +356,9 @@ managed_identity_secret_permissions = [
       "Get"
     ] 
 }
+**/
 
+/**
 module "application_gateway" {
 source = "./modules/applicationgateway"
 
@@ -389,8 +393,10 @@ backend_ip_addresss            = ["10.51.1.4"]
 probe_host_name                = "prod.virtualpetal.com"
 
 }
+**/
 
 
+/**
 module "vpn_gateway" {
 source = "./modules/vpn-gateway"
 depends_on = [module.hub-vnet , module.spoke1-vnet , module.azure_firewall_01 , module.application_gateway]
@@ -413,6 +419,7 @@ public_ip_address_id          = module.public_ip_01.public_ip_address_id
 
 }
 
+*/
 
 module "recovery_vault_01" {
 source = "./modules/recoveryservicesvault"
