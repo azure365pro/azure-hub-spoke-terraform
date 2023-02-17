@@ -150,7 +150,7 @@ subnet_id_02                  = module.spoke1-vnet.vnet_subnet_id[1]
 module "public_ip_01" {
 source = "./modules/publicip"
 
-public_ip_name      = "az-conn-pr-eastus2-01-vgw-pip01"
+public_ip_name      = "az-conn-pr-eastus2-vgw-pip01"
 resource_group_name = module.hub-resourcegroup.rg_name
 location            = module.hub-resourcegroup.rg_location
 allocation_method   = "Static"
@@ -160,7 +160,7 @@ sku                 = "Standard"
 module "public_ip_02" {
 source = "./modules/publicip"
 
-public_ip_name      = "az-conn-pr-eastus2-01-agw-pip02"
+public_ip_name      = "az-conn-pr-eastus2-agw-pip02"
 resource_group_name = module.hub-resourcegroup.rg_name
 location            = module.hub-resourcegroup.rg_location
 allocation_method   = "Static"
@@ -170,7 +170,7 @@ sku                 = "Standard"
 module "public_ip_03" {
 source = "./modules/publicip"
 
-public_ip_name      = "az-conn-pr-eastus2-01-afw-pip03"
+public_ip_name      = "az-conn-pr-eastus2-afw-pip03"
 resource_group_name = module.hub-resourcegroup.rg_name
 location            = module.hub-resourcegroup.rg_location
 allocation_method   = "Static"
