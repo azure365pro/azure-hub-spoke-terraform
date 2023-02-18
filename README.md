@@ -12,7 +12,7 @@ terraform apply
 # Resource Provisioned 
 
 1.  Virtual Networks (Hub - 10.51.0.0/16  / Spoke - 10.50.0.0/16)
-2.  Virtual Network Gateway (10.50.1.0/24)
+2.  Virtual Network Gateway (10.50.1.0/24) - Not Provisioned by Default
 3.  Azure Firewall (10.50.2.0/24)
 4.  Application Gateway (10.50.3.0/24) - Not Provisioned by Default
 5.  Azure Bastion (10.50.4.0/24)
