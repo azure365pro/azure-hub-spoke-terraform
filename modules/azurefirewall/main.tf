@@ -4,6 +4,8 @@ resource "azurerm_firewall" "az-firewall" {
   resource_group_name = var.resource_group_name
   sku_name            = var.sku_name
   sku_tier            = var.sku_tier
+  # Associating Azure Firewall with Firewall Manager Policy
+  firewall_policy_id  = azurerm_firewall_policy.az-firewall-pol01.id
 
   ip_configuration {
     name                 = var.ipconfig_name
@@ -79,69 +81,3 @@ resource "azurerm_firewall_policy_rule_collection_group" "az-collection-pol01" {
   }
 }
 }
-
-
-
-
-/**
-  application_rule_collection {
-    name     = "blocked_websites1"
-    priority = 500
-    action   = "Deny"
-    rule {
-      name = "dodgy_website"
-      source_addresses  = ["*"]
-      destination_fqdns = ["bing.co.uk"]
-      protocols {
-        type = "Http"
-        port = 80
-      }
-      protocols {
-        type = "Https"
-        port = 443
-      }
-
-    }
-  }
-
-application_rule_collection {
-    name     = "blocked_websites1"
-    priority = 500
-    action   = "Deny"
-    rule {
-      name = "dodgy_website"
-      protocols {
-        type = "Http"
-        port = 80
-      }
-      protocols {
-        type = "Https"
-        port = 443
-      }
-      source_addresses  = ["*"]
-      destination_fqdns = ["bing.co.uk"]
-    }
-  }
-
-   application_rule_collection {
-    name     = var.application_rule_coll_name
-    priority = var.application_rule_coll_priority
-    action   = var.application_rule_coll_action
-    rule {
-      name = var.application_rule_name
-      protocols {
-        type = var.application_rule_type
-        port = var.application_rule_port
-      }
-      protocols {
-        type = var.application_rule_type
-        port = var.application_rule_port
-      }
-      source_addresses  = var.source_addresses
-      destination_fqdns = var.destination_fqdns
-    }
-  }
-
-
-}
-**/
