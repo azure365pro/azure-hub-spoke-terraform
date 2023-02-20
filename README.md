@@ -22,6 +22,7 @@ We will be deploying the below resources using Terraform reusable modules.
 Modules are convenient to place into folders and reuse resource configurations with Terraform for multiple deployments.
 Also, changing / upgrading specific resource configurations becomes easier
 
+![alt text](https://www.azure365pro.com/wp-content/uploads/2023/02/Azure-Hub-and-Spoke-scaled.jpg)
 
 # Getting Started
 
