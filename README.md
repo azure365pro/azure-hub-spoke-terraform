@@ -1,4 +1,5 @@
-# azure-hub-spoke-terraform - Azure365Pro.com 
+# Azure Hub and Spoke Network using reusable Terraform modules - Azure365Pro.com 
+Blog Reference - https://www.azure365pro.com/azure-hub-and-spoke-network-using-reusable-terraform-modules/
 
 # Introduction 
 Deployment for  Infrastructure with Hub and Spoke model. Its compliant with Cloud Adoption Framework.
