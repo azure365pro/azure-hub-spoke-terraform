@@ -6,6 +6,9 @@ Deployment for  Infrastructure with Hub and Spoke model. Its compliant with Clou
 # Getting Started
 
 terraform init
+
+![alt text] (https://www.azure365pro.com/wp-content/uploads/2023/02/image-10.png)
+
 terraform plan 
 terraform apply
 
