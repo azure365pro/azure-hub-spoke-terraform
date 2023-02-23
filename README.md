@@ -27,9 +27,9 @@ Also, changing / upgrading specific resource configurations becomes easier
 
 # Getting Started
 
-Terraform latest version is installed
-Az cli is installed / az login is completed (az login)
-git is installed to clone repo (git clone)
+1. Terraform latest version is installed
+2. Az cli is installed / az login is completed (az login)
+3. git is installed to clone repo (git clone)
 
 terraform init
 
