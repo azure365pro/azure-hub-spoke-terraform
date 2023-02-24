@@ -3,7 +3,25 @@ Blog Reference - https://www.azure365pro.com/azure-hub-and-spoke-network-using-r
 Support        - Support@Azure365Pro.com
 
 # Introduction 
-Deployment for  Infrastructure with Hub and Spoke model. Its compliant with Cloud Adoption Framework.
+<p>We will deploy the resources below using Terraform reusable modules utilizing the Azure landing zone concept, part of the Cloud Adoption Framework (CAF). In this setup, we are talking about only infra resources; <a href="https://www.youtube.com/watch?v=1y4lstUzt_k&amp;t" target="_blank" rel="noreferrer noopener">if you are new to terraform</a>, the same concept has been <a href="https://www.youtube.com/watch?v=h5K4oGXAYeg" target="_blank" rel="noreferrer noopener">explained using the Azure Portal</a>; I have spoken about Azure Management Groups and Subscription Planning in this link - <a href="https://www.youtube.com/watch?v=T6YO1gKcjyU">Azure Management Groups and Subscriptions Design</a> </p>
+
+<p>Azure landing zone design that accounts for scale, security governance, networking, and identity, which enables seamless application migration, modernization, and innovation at the enterprise scale in Azure. This approach considers all platform resources like infrastructure (Iaas) or platform as a service.<br><br>Benefits of Azure Landing Zones -</p>
+
+<li>Good Governance</li>
+
+Like you can place a policy in the overall environment that no internet-exposing storage accounts can be provisioned
+
+<li>Security</li>
+
+Improved Security controls, Network segmentation, Identity management, Service Principals, Managed Identities
+
+<li>Scalability</li>
+
+Multi Datacenter or Improving the design with Virtual WAN should be seamless
+
+<li>Cost Savings</li>
+
+Segregated billing with subscriptions - Overall Control or like can apply Hybrid benefit using policies
 
 We will be deploying the below resources using Terraform reusable modules.
 
