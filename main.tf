@@ -1,3 +1,4 @@
+# Resource Group Module is Used to Create Resource Groups
 module "hub-resourcegroup" {
 source = "./modules/resourcegroups"
 # Resource Group Variables
@@ -14,6 +15,7 @@ DR 		        = "No"
   }
 }
 
+# Resource Group Module is Used to Create Resource Groups
 module "spoke1-resourcegroup" {
 source = "./modules/resourcegroups"
 # Resource Group Variables
@@ -30,6 +32,7 @@ DR 		        = "No"
   }
 }
 
+# Resource Group Module is Used to Create Resource Groups
 module "mgmt-resourcegroup" {
 source = "./modules/resourcegroups"
 # Resource Group Variables
@@ -46,6 +49,7 @@ DR 		        = "No"
   }
 }
 
+# Resource Group Module is Used to Create Resource Groups
 module "mgmt-resourcegroup_01" {
 source = "./modules/resourcegroups"
 # Resource Group Variables
@@ -62,6 +66,7 @@ DR 		        = "No"
   }
 }
 
+# vnet Module is used to create Virtual Networks and Subnets
 module "hub-vnet" {
 source = "./modules/vnet"
 
@@ -105,6 +110,7 @@ subnet_names = {
     }
 }
 
+# vnet Module is used to create Virtual Networks and Subnets
 module "spoke1-vnet" {
 source = "./modules/vnet"
 
@@ -126,6 +132,7 @@ subnet_names = {
     }
 }
 
+# vnet-peering Module is used to create peering between Virtual Networks
 module "hub-to-spoke1" {
 source = "./modules/vnet-peering"
 depends_on = [module.hub-vnet , module.spoke1-vnet , module.azure_firewall_01]
@@ -142,6 +149,7 @@ use_remote_gateways          = "false"
 
 }
 
+# vnet-peering Module is used to create peering between Virtual Networks
 module "spoke1-to-hub" {
 source = "./modules/vnet-peering"
 
@@ -158,7 +166,7 @@ use_remote_gateways          = "false"
 depends_on = [module.hub-vnet , module.spoke1-vnet]
 }
 
-
+# routetables Module is used to create route tables and associate them with Subnets created by Virtual Networks
 module "route_tables" {
 source = "./modules/routetables"
 depends_on = [module.hub-vnet , module.spoke1-vnet]
@@ -180,7 +188,7 @@ subnet_id_02                  = module.spoke1-vnet.vnet_subnet_id[1]
 }
 
 
-
+# publicip Module is used to create Public IP Address
 module "public_ip_01" {
 source = "./modules/publicip"
 
@@ -192,6 +200,7 @@ allocation_method   = "Static"
 sku                 = "Standard"
 }
 
+# publicip Module is used to create Public IP Address
 module "public_ip_02" {
 source = "./modules/publicip"
 
@@ -203,6 +212,7 @@ allocation_method   = "Static"
 sku                 = "Standard"
 }
 
+# publicip Module is used to create Public IP Address
 module "public_ip_03" {
 source = "./modules/publicip"
 
@@ -214,6 +224,7 @@ allocation_method   = "Static"
 sku                 = "Standard"
 }
 
+# publicip Module is used to create Public IP Address
 module "public_ip_04" {
 source = "./modules/publicip"
 
@@ -225,6 +236,10 @@ allocation_method   = "Static"
 sku                 = "Standard"
 }
 
+# azurefirewall Module is used to create Azure Firewall 
+# Firewall Policy
+# Associate Firewall Policy with Azure Firewall
+# Network and Application Firewall Rules 
 module "azure_firewall_01" {
 source = "./modules/azurefirewall"
 depends_on = [module.hub-vnet]
@@ -339,6 +354,7 @@ depends_on = [module.hub-vnet]
     ]
 }   
 
+# recoveryservicesvault Module is used to create Recovery Services Vault to Protect the workloads
 module "recovery_vault_01" {
 source = "./modules/recoveryservicesvault"
 
@@ -349,6 +365,7 @@ sku                 = "Standard"
 soft_delete_enabled = true
 }
 
+# vm-windows Module is used to create Windows Virtual Machines
 module "vm-windows-01" {
 source = "./modules/vm-windows"
 virtual_machine_name             = "aznetbrap01"
@@ -382,6 +399,7 @@ provision_vm_agent               = true
 depends_on = [module.spoke1-vnet]
 }
 
+# vm-linux-01 Module is used to create Linux Virtual Machines
 module "vm-linux-01" {
 source = "./modules/vm-linux"
 nic_name                         = "aznetbrdb01-nic"
@@ -415,7 +433,7 @@ depends_on = [module.spoke1-vnet]
 }
 
 
-
+# vm-windows Module is used to create Windows Desktop Virtual Machines
 module "vm-jumpbox-01" {
 source = "./modules/vm-windows"
 virtual_machine_name             = "aznetbrjump01"
@@ -449,6 +467,7 @@ provision_vm_agent               = true
 depends_on = [module.spoke1-vnet]
 }
 
+# bastion Module is used to create Bastion in Hub Virtual Network - To Console into Virtual Machines Securely
 module "vm-bastion" {
 source = "./modules/bastion"
 
@@ -464,12 +483,15 @@ depends_on = [module.hub-vnet , module.azure_firewall_01 , module.vm-jumpbox-01]
 }
 
 /**
+# keyvault Module is used to create Azure Key Vault
+# To use Key vault - First Uncomment this block and Choose a unique name 
 module "key_vault" {
 source = "./modules/keyvault"
 
 resource_group_name          = module.hub-resourcegroup.rg_name
 location                     = module.hub-resourcegroup.rg_location
 
+# To use Key vault - Choose a unique name below like az-conn-pr-eastus2-kv-05
 key_vault_name = "az-conn-pr-eastus2-kv"
 sku_name = "standard"
 admin_certificate_permissions = [
@@ -526,12 +548,18 @@ managed_identity_secret_permissions = [
 **/
 
 /**
+# applicationgateway Module is used to create Application Gateway
+# To use Applicaition Gateway you need to provision key vault first
+# Provision Key Vault - Import Certificate named Prod.pfx with name prod  
+# So that it uses a managed identity to access the certificate stored in Azure Key Vault
+
 module "application_gateway" {
 source = "./modules/applicationgateway"
 
 application_gateway_name       = "az-conn-pr-eastus2-agw"
 resource_group_name            = module.hub-resourcegroup.rg_name
 location                       = module.hub-resourcegroup.rg_location
+# To use Key vault - Choose the existing key vault name
 key_vault_name                 = "az-conn-pr-eastus2-kv"
 managed_identity_name          = "mi-appgw-keyvault"
 public_ip_address_id           = module.public_ip_02.public_ip_address_id
@@ -557,6 +585,7 @@ request_routing_rule_name      = "myRoutingRule"
 redirect_configuration_name    = "myRedirectConfig"
 backend_ip_addresss            = ["10.51.1.4"]
 
+# Update your Host name - Specified in your SSL Certificate
 probe_host_name                = "prod.virtualpetal.com"
 
 }
@@ -564,6 +593,7 @@ probe_host_name                = "prod.virtualpetal.com"
 
 
 /**
+# vpn-gateway Module is used to create Express Route Gateway - So that it can connect to the express route Circuit
 module "vpn_gateway" {
 source = "./modules/vpn-gateway"
 depends_on = [module.hub-vnet , module.spoke1-vnet , module.azure_firewall_01 , module.application_gateway]
