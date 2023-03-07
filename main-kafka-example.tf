@@ -1,5 +1,4 @@
 /**
-
 # Resource Group Module is Used to Create Resource Groups
 module "hub-resourcegroup" {
 source = "./modules/resourcegroups"
@@ -193,7 +192,5 @@ z_subnet_id                   = module.spoke1-vnet.vnet_subnet_id[2]
 z_vm_size                     = "Standard_D3_V2"
 
 }
-
 **/
-
 
