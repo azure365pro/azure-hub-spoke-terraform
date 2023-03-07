@@ -1,5 +1,8 @@
 # Azure Hub and Spoke Network using reusable Terraform modules - Azure365Pro.com 
-Blog Reference - https://www.azure365pro.com/azure-hub-and-spoke-network-using-reusable-terraform-modules/<br />
+Blog Reference for Azure Hub and Spoke   - https://www.azure365pro.com/azure-hub-and-spoke-network-using-reusable-terraform-modules/<br />
+<br />
+Blog Reference for Apache Kafka on HDInsight - https://www.azure365pro.com/deploy-apache-kafka-in-azure-hdinsight-using-reusable-terraform-modules/<br />
+<br />
 Support        - Support@Azure365Pro.com
 
 # Introduction 
@@ -76,5 +79,8 @@ Executes the changes defined by your Terraform configuration to create, update, 
 
 ![alt text](https://www.azure365pro.com/wp-content/uploads/2023/02/image-13.png)
 
-Blog Reference - https://www.azure365pro.com/azure-hub-and-spoke-network-using-reusable-terraform-modules/<br />
+Blog Reference for Azure Hub and Spoke   - https://www.azure365pro.com/azure-hub-and-spoke-network-using-reusable-terraform-modules/<br />
+<br />
+Blog Reference for Apache Kafka on HDInsight - https://www.azure365pro.com/deploy-apache-kafka-in-azure-hdinsight-using-reusable-terraform-modules/<br />
+<br />
 Support        - Support@Azure365Pro.com
