@@ -38,6 +38,7 @@ We will be deploying the below resources using Terraform reusable modules.
 ✅ Azure Key Vault - Not Provisioned by Default<br />
 ✅ Route Tables<br />
 ✅ Azure Firewall Policies<br />
+✅ Apache Kafka on HDInsight - Not Provisioned by Default<br />
 
 Modules are convenient to place into folders and reuse resource configurations with Terraform for multiple deployments.
 Also, changing / upgrading specific resource configurations becomes easier
