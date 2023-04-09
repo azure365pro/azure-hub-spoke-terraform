@@ -8,6 +8,11 @@ resource "azurerm_network_interface" "nic" {
     subnet_id                     = var.subnet_id
     private_ip_address_allocation = var.private_ip_address_allocation
     private_ip_address            = var.private_ip_address
+    #public_ip_address_id         = var.public_ip_address_id 
+#    public_ip_address_id          = var.public_ip_address_id != null ? var.public_ip_address_id : ""
+    #public_ip_address_id = length(var.public_ip_address_id) > 0 ? var.public_ip_address_id : null
+   # public_ip_address_id          = coalesce(var.public_ip_address_id, null)
+   public_ip_address_id          = var.public_ip_address_id
   }
 }
 resource "azurerm_virtual_machine" "vm" {

@@ -1,3 +1,4 @@
+
 /**
 # Resource Group Module is Used to Create Resource Groups
 module "hub-resourcegroup" {
@@ -50,6 +51,7 @@ subnet_names = {
         subnet_name = "GatewaySubnet"
         address_prefixes = ["10.50.1.0/24"]
         route_table_name = ""
+        snet_delegation  = ""
     }
     }
 }
@@ -67,16 +69,19 @@ subnet_names = {
         subnet_name = "az-netb-pr-kafka-h-snet"
         address_prefixes = ["10.51.1.0/24"]
         route_table_name = ""
+        snet_delegation  = ""
     },
     "az-netb-pr-kafka-w-snet" = {
         subnet_name = "az-netb-pr-kafka-h-snet"
         address_prefixes = ["10.51.2.0/24"]
         route_table_name = ""
+        snet_delegation  = ""
     }
     "az-netb-pr-kafka-z-snet" = {
         subnet_name = "az-netb-pr-kafka-h-snet"
         address_prefixes = ["10.51.3.0/24"]
         route_table_name = ""
+        snet_delegation  = ""
     }
     }
 }
@@ -192,5 +197,5 @@ z_subnet_id                   = module.spoke1-vnet.vnet_subnet_id[2]
 z_vm_size                     = "Standard_D3_V2"
 
 }
-**/
 
+**/

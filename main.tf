@@ -86,26 +86,31 @@ subnet_names = {
         subnet_name = "GatewaySubnet"
         address_prefixes = ["10.50.1.0/24"]
         route_table_name = ""
+        snet_delegation  = ""
     },
     "AzureFirewallSubnet" = {
         subnet_name = "AzureFirewallSubnet"
         address_prefixes = ["10.50.2.0/24"]
         route_table_name = ""
+        snet_delegation  = ""
     },
     "ApplicationGatewaySubnet" = {
         subnet_name = "ApplicationGatewaySubnet"
         address_prefixes = ["10.50.3.0/24"]
         route_table_name = ""
+        snet_delegation  = ""
        }
     "AzureBastionSubnet" = {
         subnet_name = "AzureBastionSubnet"
         address_prefixes = ["10.50.4.0/24"]
         route_table_name = ""
+        snet_delegation  = ""
        }
     "JumpboxSubnet" = {
         subnet_name = "JumpboxSubnet"
         address_prefixes = ["10.50.5.0/24"]
         route_table_name = ""
+        snet_delegation  = ""
        }
     }
 }
@@ -123,11 +128,13 @@ subnet_names = {
         subnet_name = "az-netb-pr-web-snet"
         address_prefixes = ["10.51.1.0/24"]
         route_table_name = ""
+        snet_delegation  = ""
     },
     "az-netb-pr-db-snet" = {
         subnet_name = "az-netb-pr-db-snet"
         address_prefixes = ["10.51.2.0/24"]
         route_table_name = ""
+        snet_delegation  = ""
     }
     }
 }

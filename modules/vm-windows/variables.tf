@@ -26,6 +26,11 @@ variable "private_ip_address" {
   description = "The full Azure resource ID of the remote virtual network."
 }
 
+variable "public_ip_address_id" {
+  type    = string
+  default = null
+}
+
 variable "virtual_machine_name" {
   description = "The full Azure resource ID of the remote virtual network."
 }

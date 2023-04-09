@@ -12,4 +12,30 @@ resource "azurerm_subnet" "subnet" {
   virtual_network_name  = azurerm_virtual_network.vnet.name
   resource_group_name   = var.resource_group_name
   address_prefixes      = each.value.address_prefixes
+dynamic "delegation" {
+     for_each = { for delegate in var.delegations : delegate.name => delegate 
+                  if each.value.snet_delegation == "appservice" }
+    content {
+      name = "delegation-appService"
+      service_delegation {
+      name    = "Microsoft.Web/serverFarms"
+        actions = [
+          "Microsoft.Network/virtualNetworks/subnets/action",
+        ]
+      }
+    }
+}
+dynamic "delegation" {
+     for_each = { for delegate in var.delegations : delegate.name => delegate 
+                  if each.value.snet_delegation == "mysql" }
+    content {
+      name = "delegation-database"
+      service_delegation {
+      name    = "Microsoft.DBforMySQL/flexibleServers"
+        actions = [
+          "Microsoft.Network/virtualNetworks/subnets/join/action",
+        ]
+      }
+    }
+}
 }
