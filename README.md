@@ -3,6 +3,8 @@ Blog Reference for Azure Hub and Spoke   - https://www.azure365pro.com/azure-hub
 <br />
 Blog Reference for Apache Kafka on HDInsight - https://www.azure365pro.com/deploy-apache-kafka-in-azure-hdinsight-using-reusable-terraform-modules/<br />
 <br />
+Blog Reference for Azure App Service and MySQL Private Access - https://www.azure365pro.com/deploy-azure-app-service-and-mysql-with-private-dns-zone-using-reusable-terraform-modules/<br />
+<br />
 Support        - Support@Azure365Pro.com
 
 # Introduction 
@@ -82,5 +84,7 @@ Executes the changes defined by your Terraform configuration to create, update, 
 Blog Reference for Azure Hub and Spoke   - https://www.azure365pro.com/azure-hub-and-spoke-network-using-reusable-terraform-modules/<br />
 <br />
 Blog Reference for Apache Kafka on HDInsight - https://www.azure365pro.com/deploy-apache-kafka-in-azure-hdinsight-using-reusable-terraform-modules/<br />
+<br />
+Blog Reference for Azure App Service and MySQL Private Access - https://www.azure365pro.com/deploy-azure-app-service-and-mysql-with-private-dns-zone-using-reusable-terraform-modules/<br />
 <br />
 Support        - Support@Azure365Pro.com
