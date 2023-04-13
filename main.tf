@@ -1,3 +1,4 @@
+
 # Resource Group Module is Used to Create Resource Groups
 module "hub-resourcegroup" {
 source = "./modules/resourcegroups"
@@ -622,5 +623,4 @@ subnet_id                     = module.hub-vnet.vnet_subnet_id[2]
 public_ip_address_id          = module.public_ip_01.public_ip_address_id
 
 }
-
-*/
+**/
