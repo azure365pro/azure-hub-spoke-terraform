@@ -1,3 +1,4 @@
+/**
 # Virtual Private Cloud (VPC) Configuration
 module "spoke1-vpc" {
   source = "./modules/aws-vpc"
@@ -324,7 +325,7 @@ module "ec2_04" {
     # Add more tags as needed
   }
 }
-
+**/
 /**
 # Batch Server 2
 module "ec2_05" {
