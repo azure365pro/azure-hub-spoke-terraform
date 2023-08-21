@@ -5,6 +5,8 @@ Blog Reference for Apache Kafka on HDInsight - https://www.azure365pro.com/deplo
 <br />
 Blog Reference for Azure App Service and MySQL Private Access - https://www.azure365pro.com/deploy-azure-app-service-and-mysql-with-private-dns-zone-using-reusable-terraform-modules/<br />
 <br />
+Blog Reference for AWS Architecture Implementation - https://www.azure365pro.com/aws-architecture-implementation-using-terraform/<br />
+<br />
 Support        - Support@Azure365Pro.com
 
 # Introduction 
