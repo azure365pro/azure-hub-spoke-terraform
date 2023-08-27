@@ -38,4 +38,15 @@ dynamic "delegation" {
       }
     }
 }
+dynamic "delegation" {
+  for_each = { for delegate in var.delegations : delegate.name => delegate 
+                  if each.value.snet_delegation == "aks" }
+    content {
+    name = "aciDelegation"
+    service_delegation {
+      name    = "Microsoft.ContainerInstance/containerGroups"
+      actions = ["Microsoft.Network/virtualNetworks/subnets/action"]
+    }
+  }
+}
 }

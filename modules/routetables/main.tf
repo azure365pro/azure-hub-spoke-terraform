@@ -12,12 +12,8 @@ resource "azurerm_route_table" "spoke-to-firewall" {
     }
 }
 
-resource "azurerm_subnet_route_table_association" "spoke-to-firewall_01" {
-    subnet_id      = var.subnet_id_01
-    route_table_id = azurerm_route_table.spoke-to-firewall.id
-}
-
-resource "azurerm_subnet_route_table_association" "spoke-to-firewall-02" {
-    subnet_id      = var.subnet_id_02
-    route_table_id = azurerm_route_table.spoke-to-firewall.id
+resource "azurerm_subnet_route_table_association" "spoke-to-firewall" {
+  count          = length(var.subnet_ids)
+  subnet_id      = var.subnet_ids[count.index]
+  route_table_id = azurerm_route_table.spoke-to-firewall.id
 }

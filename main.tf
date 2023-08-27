@@ -189,9 +189,10 @@ address_prefix                = "0.0.0.0/0"
 next_hop_type                 = "VirtualAppliance"
 next_hop_in_ip_address        = module.azure_firewall_01.azure_firewall_private_ip
 
-subnet_id_01                  = module.spoke1-vnet.vnet_subnet_id[0]
-subnet_id_02                  = module.spoke1-vnet.vnet_subnet_id[1]
-
+  subnet_ids                    = [
+    module.spoke1-vnet.vnet_subnet_id[0],
+    module.spoke1-vnet.vnet_subnet_id[1]
+  ]
 
 }
 
@@ -489,6 +490,7 @@ public_ip_address_id           =  module.public_ip_04.public_ip_address_id
 
 depends_on = [module.hub-vnet , module.azure_firewall_01 , module.vm-jumpbox-01]
 }
+
 
 /**
 # keyvault Module is used to create Azure Key Vault

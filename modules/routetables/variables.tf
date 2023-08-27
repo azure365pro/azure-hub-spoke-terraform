@@ -40,12 +40,9 @@ variable "next_hop_in_ip_address" {
   description = "The full Azure resource ID of the remote virtual network."
 }
 
-variable "subnet_id_01" {
-
+variable "subnet_ids" {
   description = "The full Azure resource ID of the remote virtual network."
+  default     = ""
 }
 
-variable "subnet_id_02" {
 
-  description = "The full Azure resource ID of the remote virtual network."
-}
