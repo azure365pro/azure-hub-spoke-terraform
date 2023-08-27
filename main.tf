@@ -493,7 +493,7 @@ depends_on = [module.hub-vnet , module.azure_firewall_01 , module.vm-jumpbox-01]
 
 
 /**
-# keyvault Module is used to create Azure Key Vault
+# keyvault Module is used to create Azure Key Vault.
 # To use Key vault - First Uncomment this block and Choose a unique name 
 module "key_vault" {
 source = "./modules/keyvault"
