@@ -1,4 +1,16 @@
 /**
+
+# if you are running Against new Subscription 
+# az provider register --namespace Microsoft.OperationalInsights
+# az provider register --namespace Microsoft.OperationsManagement
+# az provider register --namespace Microsoft.ContainerService
+# az feature register --namespace "Microsoft.Compute" --name "EncryptionAtHost"
+
+# 
+# To Check status - Usually Takes time
+# az feature show --namespace "Microsoft.Compute" --name "EncryptionAtHost" 
+# 
+
 # Resource Group Module is Used to Create Resource Groups
 module "hub-resourcegroup" {
 source = "./modules/resourcegroups"
