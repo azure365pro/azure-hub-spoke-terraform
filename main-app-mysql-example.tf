@@ -85,6 +85,7 @@ resource_group_name               = module.linux-app-resourcegroup.rg_name
 vnet_dns_zone_link_name           = "appsvc-privatelink.mysql.database.azure.com-vnetlink"
 private_dns_zone_name             = module.dns-zone.dns_zone_name
 virtual_network_id                = module.app-vnet.vnet_id
+registration_enabled              = "true"
 
 depends_on = [module.app-vnet, module.dns-zone]
 }
@@ -181,6 +182,7 @@ location                          = module.linux-app-resourcegroup.rg_location
 service_plan_id                   = module.app-service-plan.service_plan_id
 subnet_id                         = module.app-vnet.vnet_subnet_id[2]
 web_app_name                      = "az-365pro-prod"
+runtime                           = "php"
 php_version                       = "8.0"
 
 depends_on = [module.app-vnet, module.mysql_server , module.app-service-plan]
@@ -294,6 +296,6 @@ network_security_group_id = module.nsg.nsg_id
 
 depends_on = [module.vm-jumpbox-01]
 }
-
 **/
+
 

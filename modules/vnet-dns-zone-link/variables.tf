@@ -16,3 +16,8 @@ variable "virtual_network_id" {
   description = "virtual_network_id"
 
 }
+
+variable "registration_enabled" {
+  description = "virtual_network_id"
+
+}

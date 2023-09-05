@@ -77,7 +77,34 @@ resource "azurerm_firewall_policy_rule_collection_group" "az-collection-pol01" {
         port = protocols.value.port
       }
     }
+
     }
   }
 }
+
+    nat_rule_collection {
+    name            = var.dnat_rule_coll_name
+    priority        = var.dnat_rule_coll_priority
+    action          = var.dnat_rule_coll_action
+    
+    dynamic "rule" {
+      for_each = var.dnat_rules
+      content {
+        name               = rule.value.name
+        /**
+        source_addresses   = rule.value.source_addresses
+        destination_ports  = rule.value.destination_ports
+        translated_address = rule.value.translated_address
+        translated_port    = rule.value.translated_port
+        protocols          = rule.value.protocols       
+        **/
+      protocols           = rule.value.protocols
+      source_addresses    = rule.value.source_addresses
+      destination_address = rule.value.destination_address
+      destination_ports   = rule.value.destination_ports
+      translated_address  = rule.value.translated_address
+      translated_port     = rule.value.translated_port
+      }
+    }
+  }
 }

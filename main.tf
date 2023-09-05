@@ -268,7 +268,7 @@ depends_on = [module.hub-vnet]
   priority                               = 100
 
   network_rule_coll_name_01     = "Blocked_Network_Rules"
-  network_rule_coll_priority_01 = "1000"
+  network_rule_coll_priority_01 = "2000"
   network_rule_coll_action_01   = "Deny"
   network_rules_01 = [   
         {    
@@ -302,7 +302,7 @@ depends_on = [module.hub-vnet]
     ]  
 
   network_rule_coll_name_02     = "Allowed_Network_Rules"
-  network_rule_coll_priority_02 = "2000"
+  network_rule_coll_priority_02 = "3000"
   network_rule_coll_action_02   = "Allow"
   network_rules_02 = [   
         {    
@@ -337,7 +337,7 @@ depends_on = [module.hub-vnet]
 
 
  application_rule_coll_name     = "Allowed_websites"
- application_rule_coll_priority = "500"
+ application_rule_coll_priority = "4000"
  application_rule_coll_action   = "Allow"
  application_rules = [   
         {    
@@ -361,6 +361,30 @@ depends_on = [module.hub-vnet]
             port = 443
         }
     ]
+ dnat_rule_coll_name     = "DNATCollection"
+ dnat_rule_coll_priority = "1000"
+ dnat_rule_coll_action   = "Dnat"
+ dnat_rules = [
+  {     
+      name                = "DNATRuleRDP"
+      protocols           = ["TCP"]
+      source_addresses    = ["*"]
+      destination_address = module.public_ip_03.public_ip_address
+      destination_ports   = ["10"]    #3389 if you need RDP
+      translated_address  = "10.51.4.4"
+      translated_port     = "10"      #3389 if you need RDP
+      
+      # name                = "nat_rule_collection1_rule1"
+      # protocols           = ["TCP", "UDP"]
+      # source_addresses    = ["10.0.0.1", "10.0.0.2"]
+      # destination_address = "192.168.1.1"
+      # destination_ports   = ["80"]
+      # translated_address  = "192.168.0.1"
+      # translated_port     = "8080"
+      
+  },
+  # Add more DNAT rules as needed
+]
 }   
 
 # recoveryservicesvault Module is used to create Recovery Services Vault to Protect the workloads

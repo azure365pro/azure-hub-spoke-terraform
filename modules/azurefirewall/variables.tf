@@ -94,6 +94,22 @@ variable "application_protocols" {
   description = "The full Azure resource ID of the remote virtual network."
 }
 
+variable "dnat_rule_coll_name" {
+  description = "The full Azure resource ID of the remote virtual network."
+}
+
+variable "dnat_rule_coll_priority" {
+  description = "The full Azure resource ID of the remote virtual network."
+}
+
+variable "dnat_rule_coll_action" {
+  description = "The full Azure resource ID of the remote virtual network."
+}
+variable "dnat_rules" {
+  description = "List of DNAT rules"
+  default = []
+}
+
 /**
 variable "protocols" {
   description = "The full Azure resource ID of the remote virtual network."

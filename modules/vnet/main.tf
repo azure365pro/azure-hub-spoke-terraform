@@ -40,12 +40,23 @@ dynamic "delegation" {
 }
 dynamic "delegation" {
   for_each = { for delegate in var.delegations : delegate.name => delegate 
-                  if each.value.snet_delegation == "aks" }
+                  if each.value.snet_delegation == "aci" }
     content {
     name = "aciDelegation"
     service_delegation {
       name    = "Microsoft.ContainerInstance/containerGroups"
       actions = ["Microsoft.Network/virtualNetworks/subnets/action"]
+    }
+  }
+}
+dynamic "delegation" {
+  for_each = { for delegate in var.delegations : delegate.name => delegate 
+                  if each.value.snet_delegation == "postgresql" }
+    content {
+    name = "fs"
+    service_delegation {
+      name    = "Microsoft.DBforPostgreSQL/flexibleServers"
+      actions = ["Microsoft.Network/virtualNetworks/subnets/join/action"]
     }
   }
 }

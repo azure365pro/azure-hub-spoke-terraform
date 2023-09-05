@@ -31,6 +31,16 @@ variable "web_app_name" {
 
 variable "php_version" {
   description = "The full Azure resource ID of the remote virtual network."
+  default = {}
+}
+
+variable "node_version" {
+  description = "The full Azure resource ID of the remote virtual network."
+  default = {}
+}
+
+variable "runtime" {
+  description = "The full Azure resource ID of the remote virtual network."
 }
 
 

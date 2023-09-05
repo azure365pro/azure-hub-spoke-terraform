@@ -22,6 +22,7 @@ provider "azurerm" {
 
 
 }
+# if you dont want aws provider to be installed comment the below section
 
   provider "aws" {
   region = "us-east-1"
