@@ -13,10 +13,11 @@ variable "resource_group_name" {
   description = "The full Azure resource ID of the remote virtual network."
 }
 
-variable "disable_bgp_route_propagation" {
-
-  description = "The full Azure resource ID of the remote virtual network."
+variable "tags" {
+  type    = map(string)
+  default = {}
 }
+
 
 variable "route_name" {
 

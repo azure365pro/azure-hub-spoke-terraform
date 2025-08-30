@@ -2,6 +2,7 @@ resource "azurerm_network_interface" "nic" {
   name                = var.nic_name
   location            = var.location
   resource_group_name = var.resource_group_name
+  tags                = var.tags
 
   ip_configuration {
     name                          = var.ipconfig_name
@@ -17,6 +18,7 @@ resource "azurerm_virtual_machine" "vm" {
   resource_group_name   = var.resource_group_name
   network_interface_ids = [azurerm_network_interface.nic.id]
   vm_size               = var.vm_size 
+  tags                  = var.tags 
 
   # Uncomment this line to delete the OS disk automatically when deleting the VM
   delete_os_disk_on_termination = var.delete_os_disk_on_termination

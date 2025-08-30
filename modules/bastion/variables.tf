@@ -27,3 +27,8 @@ variable "public_ip_address_id" {
   type        = string
   description = "The full Azure resource ID of the remote virtual network."
 }
+
+variable "tags" {
+  type    = map(string)
+  default = {}
+}

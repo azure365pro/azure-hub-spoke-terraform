@@ -6,10 +6,10 @@ terraform {
 
 **/
 provider "azurerm" {
-  skip_provider_registration = true
+  resource_provider_registrations = "none"
+  subscription_id = "808c0b1c-e71d-4e23-8a94-033b4b3edced"
 /*  
     tenant_id       = "xxxxx"
-    subscription_id = "xxxxx"
     client_id       = "xxxxx"
     client_secret   = "xxxxx" 
 */

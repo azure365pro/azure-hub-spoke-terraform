@@ -2,6 +2,7 @@ resource "azurerm_network_interface" "nic" {
   name                = var.nic_name
   location            = var.location
   resource_group_name = var.resource_group_name
+  tags                = var.tags
 
   ip_configuration {
     name                          = var.ipconfig_name
@@ -18,6 +19,7 @@ resource "azurerm_linux_virtual_machine" "linux-vm" {
   size                            = var.vm_size 
   admin_username                  = var.admin_username
   admin_password                  = var.admin_password
+  tags                            = var.tags
   disable_password_authentication = var.disable_password_authentication
 
   source_image_reference {

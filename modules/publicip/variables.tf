@@ -21,3 +21,8 @@ variable "sku" {
   type        = string
   description = "The full Azure resource ID of the remote virtual network."
 }
+
+variable "tags" {
+  type    = map(string)
+  default = {}
+}

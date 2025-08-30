@@ -3,8 +3,8 @@
 module "hub-resourcegroup" {
 source = "./modules/resourcegroups"
 # Resource Group Variables
-az_rg_name      = "az-conn-pr-eastus2-net-rg"
-az_rg_location  = "eastus2"
+az_rg_name      = "az-conn-pr-uaen-net-rg"
+az_rg_location  = "uaenorth"
 az_tags = {
 ApplicationName = "Network"
 Role 		    = "Network"
@@ -13,6 +13,7 @@ Environment	    = "Prod"
 CompanyName     = "NETB"
 Criticality     = "Medium"
 DR 		        = "No"
+Sovereignty     = "Confidential"
   }
 }
 
@@ -20,8 +21,8 @@ DR 		        = "No"
 module "spoke1-resourcegroup" {
 source = "./modules/resourcegroups"
 # Resource Group Variables
-az_rg_name     = "az-netb-pr-eastus2-rg"
-az_rg_location = "eastus2"
+az_rg_name     = "az-netb-pr-uaen-rg"
+az_rg_location = "uaenorth"
 az_tags = {
 ApplicationName = "Network"
 Role 		    = "Network"
@@ -30,6 +31,7 @@ Environment	    = "Prod"
 CompanyName     = "NETB"
 Criticality     = "Medium"
 DR 		        = "No"
+Sovereignty     = "Confidential"
   }
 }
 
@@ -37,8 +39,8 @@ DR 		        = "No"
 module "mgmt-resourcegroup" {
 source = "./modules/resourcegroups"
 # Resource Group Variables
-az_rg_name     = "az-mgmt-pr-eastus2-bkp-rg"
-az_rg_location = "eastus2"
+az_rg_name     = "az-mgmt-pr-uaen-bkp-rg"
+az_rg_location = "uaenorth"
 az_tags = {
 ApplicationName = "Network"
 Role 		    = "Network"
@@ -47,6 +49,7 @@ Environment	    = "Prod"
 CompanyName     = "NETB"
 Criticality     = "Medium"
 DR 		        = "No"
+Sovereignty     = "Confidential"
   }
 }
 
@@ -54,8 +57,8 @@ DR 		        = "No"
 module "mgmt-resourcegroup_01" {
 source = "./modules/resourcegroups"
 # Resource Group Variables
-az_rg_name     = "az-mgmt-pr-eastus2-rg"
-az_rg_location = "eastus2"
+az_rg_name     = "az-mgmt-pr-uaen-rg"
+az_rg_location = "uaenorth"
 az_tags = {
 ApplicationName = "Network"
 Role 		    = "Network"
@@ -64,6 +67,7 @@ Environment	    = "Prod"
 CompanyName     = "NETB"
 Criticality     = "Medium"
 DR 		        = "No"
+Sovereignty     = "Confidential"
   }
 }
 
@@ -71,10 +75,13 @@ DR 		        = "No"
 module "hub-vnet" {
 source = "./modules/vnet"
 
-virtual_network_name              = "az-conn-pr-eastus2-vnet"
+virtual_network_name              = "az-conn-pr-uaen-vnet"
 resource_group_name               = module.hub-resourcegroup.rg_name
 location                          = module.hub-resourcegroup.rg_location
 virtual_network_address_space     = ["10.50.0.0/16"]
+tags = {
+  Sovereignty = "Confidential"
+}
 # Subnets are used in Index for other modules to refer
 # module.hub-vnet.vnet_subnet_id[0] = ApplicationGatewaySubnet   - Alphabetical Order
 # module.hub-vnet.vnet_subnet_id[1] = AzureBastionSubnet         - Alphabetical Order
@@ -120,10 +127,13 @@ subnet_names = {
 module "spoke1-vnet" {
 source = "./modules/vnet"
 
-virtual_network_name              = "az-netb-pr-eastus2-vnet"
+virtual_network_name              = "az-netb-pr-uaen-vnet"
 resource_group_name               = module.spoke1-resourcegroup.rg_name
 location                          = module.spoke1-resourcegroup.rg_location
 virtual_network_address_space     = ["10.51.0.0/16"]
+tags = {
+  Sovereignty = "Confidential"
+}
 subnet_names = {
     "az-netb-pr-web-snet" = {
         subnet_name = "az-netb-pr-web-snet"
@@ -146,7 +156,7 @@ source = "./modules/vnet-peering"
 depends_on = [module.hub-vnet , module.spoke1-vnet , module.azure_firewall_01]
 #depends_on = [module.hub-vnet , module.spoke1-vnet , module.application_gateway, module.vpn_gateway , module.azure_firewall_01]
 
-virtual_network_peering_name = "az-conn-pr-eastus2-vnet-to-az-netb-pr-eastus2-vnet"
+virtual_network_peering_name = "az-conn-pr-uaen-vnet-to-az-netb-pr-uaen-vnet"
 resource_group_name          = module.hub-resourcegroup.rg_name
 virtual_network_name         = module.hub-vnet.vnet_name
 remote_virtual_network_id    = module.spoke1-vnet.vnet_id
@@ -161,7 +171,7 @@ use_remote_gateways          = "false"
 module "spoke1-to-hub" {
 source = "./modules/vnet-peering"
 
-virtual_network_peering_name = "az-netb-pr-eastus2-vnet-to-az-conn-pr-eastus2-vnet"
+virtual_network_peering_name = "az-netb-pr-uaen-vnet-to-az-conn-pr-uaen-vnet"
 resource_group_name          = module.spoke1-resourcegroup.rg_name
 virtual_network_name         = module.spoke1-vnet.vnet_name
 remote_virtual_network_id    = module.hub-vnet.vnet_id
@@ -179,10 +189,12 @@ module "route_tables" {
 source = "./modules/routetables"
 depends_on = [module.hub-vnet , module.spoke1-vnet]
 
-route_table_name              = "az-netb-pr-eastus2-route"
+route_table_name              = "az-netb-pr-uaen-route"
 location                      = module.hub-resourcegroup.rg_location
 resource_group_name           = module.hub-resourcegroup.rg_name
-disable_bgp_route_propagation = false
+tags = {
+  Sovereignty = "Confidential"
+}
 
 route_name                    = "ToAzureFirewall"
 address_prefix                = "0.0.0.0/0"
@@ -202,11 +214,14 @@ module "public_ip_01" {
 source = "./modules/publicip"
 
 # Used for VPN Gateway 
-public_ip_name      = "az-conn-pr-eastus2-vgw-pip01"
+public_ip_name      = "az-conn-pr-uaen-vgw-pip01"
 resource_group_name = module.hub-resourcegroup.rg_name
 location            = module.hub-resourcegroup.rg_location
 allocation_method   = "Static"
 sku                 = "Standard"
+tags = {
+  Sovereignty = "Confidential"
+}
 }
 
 # publicip Module is used to create Public IP Address
@@ -214,11 +229,14 @@ module "public_ip_02" {
 source = "./modules/publicip"
 
 # Used for Application Gateway
-public_ip_name      = "az-conn-pr-eastus2-agw-pip02"
+public_ip_name      = "az-conn-pr-uaen-agw-pip02"
 resource_group_name = module.hub-resourcegroup.rg_name
 location            = module.hub-resourcegroup.rg_location
 allocation_method   = "Static"
 sku                 = "Standard"
+tags = {
+  Sovereignty = "Confidential"
+}
 }
 
 # publicip Module is used to create Public IP Address
@@ -226,11 +244,14 @@ module "public_ip_03" {
 source = "./modules/publicip"
 
 # Used for Azure Firewall 
-public_ip_name      = "az-conn-pr-eastus2-afw-pip03"
+public_ip_name      = "az-conn-pr-uaen-afw-pip03"
 resource_group_name = module.hub-resourcegroup.rg_name
 location            = module.hub-resourcegroup.rg_location
 allocation_method   = "Static"
 sku                 = "Standard"
+tags = {
+  Sovereignty = "Confidential"
+}
 }
 
 # publicip Module is used to create Public IP Address
@@ -238,11 +259,14 @@ module "public_ip_04" {
 source = "./modules/publicip"
 
 # Used for Azure Bastion
-public_ip_name      = "az-conn-pr-eastus2-afw-pip04"
+public_ip_name      = "az-conn-pr-uaen-afw-pip04"
 resource_group_name = module.hub-resourcegroup.rg_name
 location            = module.hub-resourcegroup.rg_location
 allocation_method   = "Static"
 sku                 = "Standard"
+tags = {
+  Sovereignty = "Confidential"
+}
 }
 
 # azurefirewall Module is used to create Azure Firewall 
@@ -253,18 +277,21 @@ module "azure_firewall_01" {
 source = "./modules/azurefirewall"
 depends_on = [module.hub-vnet]
 
-  azure_firewall_name = "az-conn-pr-eastus2-afw"
+  azure_firewall_name = "az-conn-pr-uaen-afw"
   location            = module.hub-resourcegroup.rg_location
   resource_group_name = module.hub-resourcegroup.rg_name
   sku_name            = "AZFW_VNet"
   sku_tier            = "Standard"
+  tags = {
+    Sovereignty = "Confidential"
+  }
 
   ipconfig_name        = "configuration"
   subnet_id            = module.hub-vnet.vnet_subnet_id[2]
   public_ip_address_id = module.public_ip_03.public_ip_address_id
 
-  azure_firewall_policy_coll_group_name  = "az-conn-pr-eastus2-afw-coll-pol01" 
-  azure_firewall_policy_name             = "az-conn-pr-eastus2-afw-pol01"  
+  azure_firewall_policy_coll_group_name  = "az-conn-pr-uaen-afw-coll-pol01" 
+  azure_firewall_policy_name             = "az-conn-pr-uaen-afw-pol01"  
   priority                               = 100
 
   network_rule_coll_name_01     = "Blocked_Network_Rules"
@@ -387,16 +414,18 @@ depends_on = [module.hub-vnet]
 ]
 }   
 
+/**
 # recoveryservicesvault Module is used to create Recovery Services Vault to Protect the workloads
 module "recovery_vault_01" {
 source = "./modules/recoveryservicesvault"
 
-recovery_vault_name = "az-mgmt-pr-eastus2-bkp"
+recovery_vault_name = "az-mgmt-pr-uaen-bkp"
 resource_group_name = module.mgmt-resourcegroup.rg_name
 location            = module.mgmt-resourcegroup.rg_location
 sku                 = "Standard"
 soft_delete_enabled = true
 }
+**/
 
 # vm-windows Module is used to create Windows Virtual Machines
 module "vm-windows-01" {
@@ -417,7 +446,7 @@ delete_data_disks_on_termination = true
 
 publisher                        = "MicrosoftWindowsServer"
 offer                            = "WindowsServer"
-sku                              = "2019-Datacenter"
+sku                              = "2022-Datacenter"
 storage_version                  = "latest"
 
 os_disk_name                     = "aznetbrap01osdisk"
@@ -430,6 +459,9 @@ admin_password                   = "Password1234!"
 
 provision_vm_agent               = true
 depends_on = [module.spoke1-vnet]
+tags = {
+  Sovereignty = "Confidential"
+}
 }
 
 # vm-linux-01 Module is used to create Linux Virtual Machines
@@ -463,6 +495,9 @@ admin_username                   = "netb.admin"
 admin_password                   = "Password1234!"
 disable_password_authentication  = false
 depends_on = [module.spoke1-vnet]
+tags = {
+  Sovereignty = "Confidential"
+}
 }
 
 
@@ -485,7 +520,7 @@ delete_data_disks_on_termination = true
 
 publisher                        = "MicrosoftWindowsDesktop"
 offer                            = "windows-11"
-sku                              = "win11-22h2-pro"
+sku                              = "win11-23h2-pro"
 storage_version                  = "latest"
 
 os_disk_name                     = "aznetbrjump01osdisk"
@@ -498,15 +533,21 @@ admin_password                   = "Password1234!"
 
 provision_vm_agent               = true
 depends_on = [module.spoke1-vnet]
+tags = {
+  Sovereignty = "Confidential"
+}
 }
 
 # bastion Module is used to create Bastion in Hub Virtual Network - To Console into Virtual Machines Securely
 module "vm-bastion" {
 source = "./modules/bastion"
 
-bastion_host_name              = "az-conn-pr-eastus2-jmp-bastion"
+bastion_host_name              = "az-conn-pr-uaen-jmp-bastion"
 resource_group_name            = module.hub-resourcegroup.rg_name
 location                       = module.hub-resourcegroup.rg_location
+tags = {
+  Sovereignty = "Confidential"
+}
 
 ipconfig_name                  =  "configuration"        
 subnet_id                      =  module.hub-vnet.vnet_subnet_id[1]
@@ -525,8 +566,8 @@ source = "./modules/keyvault"
 resource_group_name          = module.hub-resourcegroup.rg_name
 location                     = module.hub-resourcegroup.rg_location
 
-# To use Key vault - Choose a unique name below like az-conn-pr-eastus2-kv-05
-key_vault_name = "az-conn-pr-eastus2-kv"
+# To use Key vault - Choose a unique name below like az-conn-pr-uaen-kv-05
+key_vault_name = "az-conn-pr-uaen-kv"
 sku_name = "standard"
 admin_certificate_permissions = [
       "Create",
@@ -590,11 +631,11 @@ managed_identity_secret_permissions = [
 module "application_gateway" {
 source = "./modules/applicationgateway"
 
-application_gateway_name       = "az-conn-pr-eastus2-agw"
+application_gateway_name       = "az-conn-pr-uaen-agw"
 resource_group_name            = module.hub-resourcegroup.rg_name
 location                       = module.hub-resourcegroup.rg_location
 # To use Key vault - Choose the existing key vault name
-key_vault_name                 = "az-conn-pr-eastus2-kv"
+key_vault_name                 = "az-conn-pr-uaen-kv"
 managed_identity_name          = "mi-appgw-keyvault"
 public_ip_address_id           = module.public_ip_02.public_ip_address_id
 subnet_id                      = module.hub-vnet.vnet_subnet_id[0]
@@ -632,7 +673,7 @@ module "vpn_gateway" {
 source = "./modules/vpn-gateway"
 depends_on = [module.hub-vnet , module.spoke1-vnet , module.azure_firewall_01 , module.application_gateway]
 
-vpn_gateway_name              = "az-conn-pr-eastus2-01-vgw"
+vpn_gateway_name              = "az-conn-pr-uaen-01-vgw"
 location                      = module.hub-resourcegroup.rg_location
 resource_group_name           = module.hub-resourcegroup.rg_name
 
