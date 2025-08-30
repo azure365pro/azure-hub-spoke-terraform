@@ -7,7 +7,7 @@ Blog Reference for Azure App Service and MySQL Private Access - https://www.azur
 <br />
 Blog Reference for AWS Architecture Implementation - https://www.azure365pro.com/aws-architecture-implementation-using-terraform/<br />
 <br />
-Support        - Support@Azure365Pro.com
+Support       - Support@Azure365Pro.com
 
 # Introduction 
 <p>We will deploy the resources below using Terraform reusable modules utilizing the Azure landing zone concept, part of the Cloud Adoption Framework (CAF). In this setup, we are talking about only infra resources; <a href="https://www.youtube.com/watch?v=1y4lstUzt_k&amp;t" target="_blank" rel="noreferrer noopener">if you are new to terraform</a>, the same concept has been <a href="https://www.youtube.com/watch?v=h5K4oGXAYeg" target="_blank" rel="noreferrer noopener">explained using the Azure Portal</a>; I have spoken about Azure Management Groups and Subscription Planning in this link - <a href="https://www.youtube.com/watch?v=T6YO1gKcjyU">Azure Management Groups and Subscriptions Design</a> </p>
